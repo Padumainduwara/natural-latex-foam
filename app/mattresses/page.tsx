@@ -3,68 +3,209 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Moon, Check, ShieldCheck, Ruler, Leaf } from "lucide-react";
+
+// Product Data extracted from PDF
+const products = [
+  {
+    id: 1,
+    name: "Natural Latex Mono Zone Mattress",
+    image: "/images/mattresses/mono-zone.jpg",
+    description: "Uniform density providing consistent support across the entire sleeping surface. Ideal for those who prefer a traditional, solid feel.",
+    specs: ["All Standard Sizes", "Custom Sizes Available"],
+    warranty: "25 Year Warranty",
+    features: ["100% Natural", "Uniform Support", "Eco-Friendly"]
+  },
+  {
+    id: 2,
+    name: "Natural Latex 5 Zone Mattress",
+    image: "/images/mattresses/latex-5-zone.jpg",
+    description: "Engineered with 5 distinct pressure zones to support your head, shoulders, back, hips, and legs separately for better spinal alignment.",
+    specs: ["All Standard Sizes", "Custom Sizes Available"],
+    warranty: "25 Year Warranty",
+    features: ["5 Pressure Zones", "Orthopedic Support", "Breathable"]
+  },
+  {
+    id: 3,
+    name: "Natural Latex 7 Zone Mattress",
+    image: "/images/mattresses/latex-7-zone.jpg",
+    description: "The ultimate luxury. 7 specialized zones provide the most precise contouring and pressure relief for every part of your body.",
+    specs: ["All Standard Sizes", "Custom Sizes Available"],
+    warranty: "25 Year Warranty",
+    features: ["7 Precision Zones", "Maximum Comfort", "Zero Motion Transfer"]
+  },
+  {
+    id: 4,
+    name: "Natural Latex Laminated Cushion",
+    image: "/images/mattresses/laminated-cushions.jpg",
+    description: "Versatile natural latex cushions perfect for seating comfort. Durable and supportive.",
+    specs: ['20"x20"x4"', '20"x20"x2.5"', "Custom Sizes"],
+    warranty: "Standard Warranty",
+    features: ["High Durability", "Multi-purpose", "Eco-Friendly"]
+  }
+];
 
 export default function Mattresses() {
   return (
     <main className="bg-white min-h-screen">
       <Navbar />
-      <div className="pt-32 pb-16 bg-green-950 text-center px-4">
-        <h1 className="text-4xl md:text-6xl font-bold text-white">Natural Sleep Mattresses</h1>
-        <p className="mt-4 text-xl text-green-200">The foundation of a healthy life.</p>
-      </div>
 
-      <div className="container mx-auto px-4 py-20">
-        {/* Product 1 */}
-        <div className="flex flex-col md:flex-row gap-16 items-center mb-32">
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            className="md:w-1/2 relative h-[450px] w-full rounded-2xl overflow-hidden shadow-2xl"
-          >
-            <Image src="/images/mattress-1.jpg" alt="Standard Latex Mattress" fill className="object-cover" />
-          </motion.div>
-          <div className="md:w-1/2">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">Standard Natural Latex</h2>
-            <p className="text-gray-600 mb-8 leading-relaxed text-lg">
-              Our standard mattresses are designed with air-cores for superior ventilation. 
-              Manufactured using collected and processed sap of rubber trees, these mattresses 
-              provide a unique balance of soft comfort and firm support.
-            </p>
-            <ul className="space-y-4 mb-8">
-              {["25 Year Warranty", "No heat generation", "Dust-mite resistant", "Perfect Air Circulation"].map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-gray-800 font-medium">
-                  <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                    <Check size={14} />
-                  </div>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+      {/* --- HERO SECTION --- */}
+      {/* Responsive Height: 400px on mobile, 500px on desktop */}
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-24 bg-green-950 text-white text-center px-4 overflow-hidden min-h-[400px] md:min-h-[500px] flex flex-col justify-center">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+            <Image 
+              src="/images/about-us/rubber-milk.jpg" 
+              alt="Rubber Tree Background" 
+              fill 
+              className="object-cover opacity-20 mix-blend-overlay"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-green-950/80 via-green-950/90 to-green-950"></div>
         </div>
 
-        {/* Product 2 */}
-        <div className="flex flex-col md:flex-row-reverse gap-16 items-center">
-          <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            className="md:w-1/2 relative h-[450px] w-full rounded-2xl overflow-hidden shadow-2xl"
+        <div className="container relative z-10 mx-auto">
+          <motion.div
+             initial={{ opacity: 0, scale: 0.9 }}
+             animate={{ opacity: 1, scale: 1 }}
+             transition={{ duration: 0.5 }}
+             className="inline-flex items-center gap-2 bg-green-800/50 px-4 py-2 rounded-full text-green-300 text-sm font-semibold mb-6 border border-green-700 backdrop-blur-sm"
           >
-            <Image src="/images/mattress-1.jpg" alt="Orthopedic Mattress" fill className="object-cover" />
+            <Moon size={16} /> Premium Sleep Solutions
           </motion.div>
-          <div className="md:w-1/2">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">Orthopedic Hybrid Block</h2>
-            <p className="text-gray-600 mb-8 leading-relaxed text-lg">
-              Specially designed for those with back pain. This mattress features a solid latex layer 
-              combined with a soft latex sheet, allowing for dual-side usage (one side firm, one side soft).
-            </p>
-            <button className="px-8 py-4 bg-green-600 text-white rounded-full font-bold hover:bg-green-700 transition shadow-lg hover:shadow-green-500/30">
-              Contact for Pricing
-            </button>
-          </div>
+
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight"
+          >
+            Natural Sleep Mattresses
+          </motion.h1>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.7 }}
+            className="text-lg md:text-2xl text-green-100 max-w-3xl mx-auto leading-relaxed px-2"
+          >
+            The foundation of a healthy life. Best for back pain, durable, natural, and eco-friendly.
+          </motion.p>
         </div>
-      </div>
+      </section>
+
+      {/* --- INTRO / BENEFITS --- */}
+      <section className="py-16 md:py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center mb-12 md:mb-16">
+                <span className="text-green-600 font-bold uppercase tracking-wider text-sm">Why Latex?</span>
+                <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mt-2 mb-6">Experience Pure Comfort</h2>
+                <p className="text-gray-600 text-lg leading-relaxed">
+                   In its simplest form, our latex foam mattress is manufactured using the collected and processed sap of a rubber tree. 
+                   Instead of traditional bedding technology like springs, our mattresses are widely considered to be the best for back pain 
+                   and are hypoallergenic, making them the healthiest option on the market.
+                </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                {[
+                    { title: "Best for Back Pain", icon: <ShieldCheck className="w-8 h-8"/>, desc: "Naturally aligns the spine and relieves pressure." },
+                    { title: "Eco-Friendly", icon: <Leaf className="w-8 h-8"/>, desc: "Made from 100% natural organic material." },
+                    { title: "Custom Sizes", icon: <Ruler className="w-8 h-8"/>, desc: "Made to order as per your requirements." }
+                ].map((item, idx) => (
+                    <motion.div 
+                        key={idx}
+                        whileHover={{ y: -5 }}
+                        className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center"
+                    >
+                        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-4">
+                            {item.icon}
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
+                        <p className="text-gray-600">{item.desc}</p>
+                    </motion.div>
+                ))}
+            </div>
+        </div>
+      </section>
+
+      {/* --- PRODUCT COLLECTION --- */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+            <div className="text-center mb-12 md:mb-16">
+               <h2 className="text-3xl md:text-4xl font-bold text-green-950">Our Mattress Collection</h2>
+               <p className="text-gray-500 mt-3">Designed for every type of sleeper</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 md:gap-10">
+                {products.map((product, idx) => (
+                    <motion.div
+                        key={product.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: idx * 0.1 }}
+                        className="group bg-white rounded-2xl md:rounded-3xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl hover:border-green-200 transition-all duration-300 flex flex-col"
+                    >
+                        {/* Image Container - FULLY RESPONSIVE */}
+                        {/* h-[250px] on mobile -> h-[300px] on sm -> h-[350px] on md -> h-[400px] on lg */}
+                        <div className="relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] w-full bg-gray-50 overflow-hidden">
+                            <Image 
+                                src={product.image} 
+                                alt={product.name} 
+                                fill 
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                            />
+                            {/* Overlay Badge */}
+                            <div className="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 md:px-4 md:py-1.5 rounded-full text-xs md:text-sm font-bold text-green-800 shadow-sm flex items-center gap-2">
+                                <Leaf size={14} className="text-green-600"/> 100% Natural
+                            </div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-6 md:p-8 flex-grow flex flex-col">
+                            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-green-700 transition-colors">
+                                {product.name}
+                            </h3>
+                            <p className="text-gray-600 mb-6 text-sm md:text-base leading-relaxed">
+                                {product.description}
+                            </p>
+                            
+                            <div className="mt-auto space-y-5">
+                                {/* Specs Grid */}
+                                <div className="grid grid-cols-2 gap-4 pb-6 border-b border-gray-100">
+                                    <div>
+                                        <span className="block text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">Availability</span>
+                                        <div className="text-gray-900 font-medium text-sm">
+                                            {product.specs.map((s, i) => <div key={i}>{s}</div>)}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span className="block text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">Warranty</span>
+                                        <span className="inline-block bg-green-50 text-green-700 px-2 py-1 rounded text-xs md:text-sm font-bold">
+                                            {product.warranty}
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                {/* Features List */}
+                                <div className="flex flex-wrap gap-2 md:gap-3">
+                                    {product.features.map((feature, i) => (
+                                        <span key={i} className="flex items-center gap-1.5 text-xs md:text-sm text-gray-700 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">
+                                            <Check className="w-3 md:w-3.5 h-3 md:h-3.5 text-green-500" /> {feature}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+        </div>
+      </section>
+
       <Footer />
     </main>
   );
