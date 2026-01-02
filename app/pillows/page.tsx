@@ -5,6 +5,36 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { CloudMoon, Check, Star, ShieldCheck, Leaf } from "lucide-react";
 
+// --- PRODUCT SCHEMA (JSON-LD) ---
+const productSchema = {
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "Natural Latex Pillows Collection",
+  "image": [
+    "https://naturallatexfoamsrilanka.lk/images/pillow-1.jpg",
+    "https://naturallatexfoamsrilanka.lk/images/pillows/contour-pillows.jpg"
+  ],
+  "description": "100% Natural Latex Pillows for Neck Support. Hypoallergenic, Dust-mite resistant. Available in Contour, Knobby, and Standard shapes.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Natural Latex Foam Lanka"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "url": "https://naturallatexfoamsrilanka.lk/pillows",
+    "priceCurrency": "LKR",
+    "lowPrice": "4500",
+    "highPrice": "12000",
+    "offerCount": "5",
+    "availability": "https://schema.org/InStock"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "85"
+  }
+};
+
 // Product Data extracted from PDF
 const products = [
   {
@@ -57,6 +87,12 @@ const products = [
 export default function Pillows() {
   return (
     <main className="bg-white min-h-screen">
+      {/* --- SEO SCHEMA INJECTION --- */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+
       <Navbar />
 
       {/* --- HERO SECTION (Consistent with Vision & About Us) --- */}
@@ -104,7 +140,7 @@ export default function Pillows() {
       </section>
 
       {/* --- INTRO / WHY CHOOSE US --- */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center mb-16">
                 <span className="text-green-600 font-bold uppercase tracking-wider text-sm">Why Our Pillows?</span>

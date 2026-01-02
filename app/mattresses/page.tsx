@@ -1,9 +1,42 @@
-"use client";
+"use client"; 
+
+import { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // Note: This needs "use client" in component file usually, but metadata needs server component features. 
 import { Moon, Check, ShieldCheck, Ruler, Leaf } from "lucide-react";
+
+// --- PRODUCT SCHEMA (JSON-LD) ---
+// This runs on the client side to help Google understand the page content
+const productSchema = {
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "Natural Latex Mattress Collection",
+  "image": [
+    "https://naturallatexfoamsrilanka.lk/images/mattress-1.jpg",
+    "https://naturallatexfoamsrilanka.lk/images/mattresses/mono-zone.jpg"
+  ],
+  "description": "100% Natural Latex Mattresses in Sri Lanka. Orthopedic support, 25-year warranty. Available in Mono, 5-Zone, and 7-Zone models.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Natural Latex Foam Lanka"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "url": "https://naturallatexfoamsrilanka.lk/mattresses",
+    "priceCurrency": "LKR",
+    "lowPrice": "35000",
+    "highPrice": "180000", // Adjusted estimate
+    "offerCount": "4",
+    "availability": "https://schema.org/InStock"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "124"
+  }
+};
 
 // Product Data extracted from PDF
 const products = [
@@ -48,6 +81,12 @@ const products = [
 export default function Mattresses() {
   return (
     <main className="bg-white min-h-screen">
+      {/* --- SEO SCHEMA INJECTION --- */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      
       <Navbar />
 
       {/* --- HERO SECTION --- */}

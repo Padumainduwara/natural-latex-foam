@@ -5,9 +5,52 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 
+// --- LOCAL BUSINESS SCHEMA (JSON-LD) ---
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Natural Latex Foam Lanka Pvt Ltd",
+  "image": "https://naturallatexfoamsrilanka.lk/images/hero-bg.jpg",
+  "telephone": "+94777733074",
+  "email": "naturallatexfoamlanka@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "No 10E, Pirivena Road",
+    "addressLocality": "Ratmalana",
+    "addressRegion": "Western Province",
+    "postalCode": "10390",
+    "addressCountry": "LK"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 6.8264719,
+    "longitude": 79.8703129
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "opens": "09:00",
+    "closes": "18:00"
+  },
+  "url": "https://naturallatexfoamsrilanka.lk/contact-us"
+};
+
 export default function ContactUs() {
   return (
     <main className="bg-white min-h-screen">
+      {/* --- SEO SCHEMA INJECTION --- */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+
       <Navbar />
 
       {/* --- HERO SECTION (Consistent with other pages) --- */}
