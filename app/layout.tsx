@@ -83,7 +83,7 @@ export const metadata: Metadata = {
   },
   verification: {
     // IMPORTNANT: Google Search Console eken ganna code eka methanata danna
-    google: 'google-site-verification-code-here', 
+    google: 'Q_QOAs0X_eMOcNgMVy-9C-oq3d_PatIUI_jh7pjfRXE', 
   },
 };
 
