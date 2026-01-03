@@ -1,7 +1,8 @@
 "use client";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   ArrowRight, 
   CheckCircle, 
@@ -19,25 +20,58 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
+  // --- HERO SLIDESHOW LOGIC ---
+  const heroImages = [
+    "/images/hero-bg1.jpg",
+    "/images/hero-bg2.jpg",
+    "/images/hero-bg3.jpg",
+    "/images/hero-bg4.jpg"
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 5000); // Change image every 5 seconds
+    return () => clearInterval(timer);
+  }, []);
+  // ----------------------------
+
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
 
       {/* --- HERO SECTION --- */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-0">
+        
+        
+        {/* Background Slideshow */}
         <div className="absolute inset-0 z-0">
-          <Image 
-            src="/images/hero-bg.jpg" 
-            alt="Natural Latex Mattress Factory" 
-            fill 
-            className="object-cover brightness-50"
-            priority
-          />
-          {/* Gradient Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-green-950/90"></div>
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, scale: 1.1 }} // Starts slightly zoomed in & transparent
+              animate={{ opacity: 1, scale: 1 }}    // Fades in & zooms out to normal
+              exit={{ opacity: 0 }}                 // Fades out
+              transition={{ duration: 1.5, ease: "easeInOut" }} // Smooth transition
+              className="absolute inset-0 w-full h-full"
+            >
+              <Image 
+                src={heroImages[currentIndex]} 
+                alt="Natural Latex Mattress Factory" 
+                fill 
+                className="object-cover brightness-50"
+                priority
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Gradient Overlay for better text readability (Stays consistent on top) */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-green-950/90 z-10"></div>
         </div>
 
+        {/* --- Content Container (Existing Content) --- */}
         <div className="container relative z-10 px-4 text-center mt-10 md:mt-0">
           <motion.div
              initial={{ opacity: 0, y: -20 }}

@@ -1,4 +1,4 @@
-import { Recycle, MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
+import { Recycle, MapPin, Phone, Mail, Facebook, Instagram, MessageCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function Footer() {
@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         
         {/* Top Section: Grid Layout for Responsive Design */}
-        {/* Mobile: 1 Column, Tablet: 2 Columns, Desktop: 4 Columns (adjusted for better spacing) */}
+        {/* Mobile: 1 Column, Tablet: 2 Columns, Desktop: 3 Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
           
           {/* Brand & Description */}
@@ -20,19 +20,20 @@ export default function Footer() {
               Sri Lanka's premier manufacturer of 100% natural latex mattresses and pillows.
               Experience the purest sleep with our eco-friendly products.
             </p>
-            {/* Social Icons (Optional Placeholder) */}
+            {/* Social Icons */}
             <div className="flex gap-4">
-              <a href="https://www.facebook.com/naturallatexfoamlankalk" className="w-10 h-10 rounded-full bg-green-900 flex items-center justify-center hover:bg-green-600 transition-colors text-white">
+              <a href="https://www.facebook.com/naturallatexfoamlankalk" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-green-900 flex items-center justify-center hover:bg-green-600 transition-colors text-white">
                 <Facebook size={20} />
               </a>
-              <a href="https://www.instagram.com/naturallatexfoamlanka" className="w-10 h-10 rounded-full bg-green-900 flex items-center justify-center hover:bg-green-600 transition-colors text-white">
+              <a href="https://www.instagram.com/naturallatexfoamlanka" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-green-900 flex items-center justify-center hover:bg-green-600 transition-colors text-white">
                 <Instagram size={20} />
               </a>
             </div>
           </div>
           
-          {/* Quick Links - Added Advantages & About Us */}
-          <div>
+          {/* Quick Links - Centered on Desktop */}
+          {/* Added 'lg:justify-self-center' to center this block in the middle column on large screens */}
+          <div className="lg:justify-self-center">
             <h3 className="text-xl font-bold mb-6 text-green-400">Quick Links</h3>
             <ul className="space-y-3 text-gray-300">
               <li>
@@ -82,13 +83,28 @@ export default function Footer() {
                 <div className="w-8 h-8 rounded-full bg-green-900 flex items-center justify-center shrink-0 group-hover:bg-green-600 transition-colors">
                    <Phone size={16} />
                 </div>
-                <span>+94 777 733 074</span>
+                <a href="tel:+94777733074" className="hover:text-green-400 transition-colors">
+                  +94 777 733 074
+                </a>
               </li>
+              
+              {/* NEW WhatsApp Number */}
+              <li className="flex gap-4 items-center group">
+                <div className="w-8 h-8 rounded-full bg-green-900 flex items-center justify-center shrink-0 group-hover:bg-green-600 transition-colors">
+                   <MessageCircle size={16} />
+                </div>
+                <a href="https://wa.me/94777342974" target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors">
+                  +94 777 342 974
+                </a>
+              </li>
+
               <li className="flex gap-4 items-center group">
                  <div className="w-8 h-8 rounded-full bg-green-900 flex items-center justify-center shrink-0 group-hover:bg-green-600 transition-colors">
                     <Mail size={16} />
                  </div>
-                <span>naturallatexfoamlanka@gmail.com</span>
+                <a href="mailto:naturallatexfoamlanka@gmail.com" className="hover:text-green-400 transition-colors">
+                  naturallatexfoamlanka@gmail.com
+                </a>
               </li>
             </ul>
           </div>

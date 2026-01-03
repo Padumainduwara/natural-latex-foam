@@ -3,7 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Send, User, AtSign, PenTool } from "lucide-react";
+import { useState } from "react";
 
 // --- LOCAL BUSINESS SCHEMA (JSON-LD) ---
 const localBusinessSchema = {
@@ -16,15 +17,15 @@ const localBusinessSchema = {
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "No 10E, Pirivena Road",
-    "addressLocality": "Ratmalana",
+    "addressLocality": "Dehiwala-Mount Lavinia",
     "addressRegion": "Western Province",
     "postalCode": "10390",
     "addressCountry": "LK"
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 6.8264719,
-    "longitude": 79.8703129
+    "latitude": 6.8306, 
+    "longitude": 79.8708
   },
   "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
@@ -43,6 +44,20 @@ const localBusinessSchema = {
 };
 
 export default function ContactUs() {
+  const [formStatus, setFormStatus] = useState("idle"); // idle, submitting, success
+
+  // Function to handle form submission (UI only for now)
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormStatus("submitting");
+    // Simulate network request
+    setTimeout(() => {
+      setFormStatus("success");
+      // Reset after 3 seconds
+      setTimeout(() => setFormStatus("idle"), 3000);
+    }, 1500);
+  };
+
   return (
     <main className="bg-white min-h-screen">
       {/* --- SEO SCHEMA INJECTION --- */}
@@ -53,7 +68,7 @@ export default function ContactUs() {
 
       <Navbar />
 
-      {/* --- HERO SECTION (Consistent with other pages) --- */}
+      {/* --- HERO SECTION --- */}
       <section className="relative pt-40 pb-24 bg-green-950 text-white text-center px-4 overflow-hidden min-h-[500px] flex flex-col justify-center">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
@@ -98,9 +113,15 @@ export default function ContactUs() {
       </section>
 
       {/* --- CONTACT INFO CARDS --- */}
-      <section className="py-20 bg-gray-50 -mt-10 relative z-20">
+      <section className="py-20 bg-white -mt-10 relative z-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Updated Grid Layout for 5 Cards:
+             - Mobile: 1 col
+             - Tablet (md): 2 cols
+             - Laptop (lg): 3 cols (looks better than squeezing 5)
+             - Large Desktop (xl): 5 cols (all in one row)
+          */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 justify-center">
             
             {/* Address Card */}
             <motion.div 
@@ -108,13 +129,13 @@ export default function ContactUs() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               whileHover={{ y: -5 }}
-              className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center h-full"
+              className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center h-full"
             >
               <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-6">
                 <MapPin size={28} />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">Showroom</h3>
-              <p className="text-gray-600">No. 10E, Pirivena Road,<br/> Ratmalana, Sri Lanka.</p>
+              <p className="text-gray-600 text-sm">No. 10E, Pirivena Road,<br/> Dehiwala-Mount Lavinia</p>
             </motion.div>
 
             {/* Phone Card */}
@@ -124,15 +145,40 @@ export default function ContactUs() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
               whileHover={{ y: -5 }}
-              className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center h-full"
+              className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center h-full"
             >
               <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-6">
                 <Phone size={28} />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">Phone</h3>
-              <p className="text-gray-600 mb-2">Call us for inquiries</p>
+              <p className="text-gray-600 mb-2 text-sm">Call us for inquiries</p>
               <a href="tel:+94777733074" className="text-lg font-bold text-green-700 hover:text-green-800 transition">
                 +94 777 733 074
+              </a>
+            </motion.div>
+
+            {/* NEW WhatsApp Card (Added Here) */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              whileHover={{ y: -5 }}
+              className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center h-full cursor-pointer group"
+            >
+              <div className="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-white mb-6 shadow-green-200 shadow-lg group-hover:scale-110 transition-transform">
+                {/* Using MessageCircle as WhatsApp icon substitute or you can use a custom SVG */}
+                <MessageCircle size={28} />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">WhatsApp</h3>
+              <p className="text-gray-600 mb-2 text-sm">Chat with us instantly</p>
+              <a 
+                href="https://wa.me/94777342974" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-lg font-bold text-green-600 hover:text-green-800 transition"
+              >
+                0777 342 974
               </a>
             </motion.div>
 
@@ -141,16 +187,16 @@ export default function ContactUs() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.3 }}
               whileHover={{ y: -5 }}
-              className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center h-full"
+              className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center h-full"
             >
               <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-6">
                 <Mail size={28} />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">Email</h3>
-              <p className="text-gray-600 mb-2">Drop us a line anytime</p>
-              <a href="mailto:naturallatexfoamlanka@gmail.com" className="text-green-700 font-medium hover:underline break-all">
+              <p className="text-gray-600 mb-2 text-sm">Drop us a line anytime</p>
+              <a href="mailto:naturallatexfoamlanka@gmail.com" className="text-green-700 font-medium hover:underline break-all text-sm">
                 naturallatexfoamlanka@gmail.com
               </a>
             </motion.div>
@@ -160,36 +206,101 @@ export default function ContactUs() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.4 }}
               whileHover={{ y: -5 }}
-              className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center h-full"
+              className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center h-full"
             >
               <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-6">
                 <Clock size={28} />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">Opening Hours</h3>
-              <p className="text-gray-600">Mon - Sat: 9:00 AM – 6:00 PM</p>
-              <p className="text-red-500 font-medium mt-1">Sunday: Closed</p>
+              <p className="text-gray-600 text-sm">Mon - Sat: 9:00 AM – 6:00 PM</p>
+              <p className="text-red-500 font-medium mt-1 text-sm">Sunday: Closed</p>
             </motion.div>
 
           </div>
         </div>
       </section>
 
-      {/* --- MAP & FORM SECTION --- */}
+      {/* --- FORM & MAP SECTION --- */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-12">
+          <div className="flex flex-col lg:flex-row gap-12 items-start">
             
-            {/* Map */}
+            {/* Contact Form */}
             <motion.div 
                initial={{ opacity: 0, x: -50 }}
                whileInView={{ opacity: 1, x: 0 }}
                viewport={{ once: true }}
-               className="w-full h-[500px] bg-gray-100 rounded-3xl overflow-hidden shadow-2xl border border-gray-200"
+               className="w-full lg:w-1/2"
             >
+              <div className="bg-white p-8 md:p-10 rounded-3xl shadow-2xl border border-gray-100">
+                <h2 className="text-3xl font-bold text-green-950 mb-2">Send us a Message</h2>
+                <p className="text-gray-500 mb-8">Have a specific question? Fill out the form below and we'll get back to you shortly.</p>
+                
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="relative">
+                      <label className="text-sm font-semibold text-gray-700 mb-2 block">Your Name</label>
+                      <div className="relative">
+                        <User className="absolute left-4 top-3.5 text-gray-400 w-5 h-5" />
+                        <input type="text" placeholder="John Doe" required className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                      </div>
+                    </div>
+                    <div className="relative">
+                      <label className="text-sm font-semibold text-gray-700 mb-2 block">Your Email</label>
+                      <div className="relative">
+                         <AtSign className="absolute left-4 top-3.5 text-gray-400 w-5 h-5" />
+                         <input type="email" placeholder="john@example.com" required className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                     <label className="text-sm font-semibold text-gray-700 mb-2 block">Phone Number</label>
+                     <div className="relative">
+                        <Phone className="absolute left-4 top-3.5 text-gray-400 w-5 h-5" />
+                        <input type="tel" placeholder="+94 77..." className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                     </div>
+                  </div>
+
+                  <div>
+                     <label className="text-sm font-semibold text-gray-700 mb-2 block">Message</label>
+                     <div className="relative">
+                        <PenTool className="absolute left-4 top-3.5 text-gray-400 w-5 h-5" />
+                        <textarea rows={4} placeholder="How can we help you?" required className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all resize-none"></textarea>
+                     </div>
+                  </div>
+
+                  <button 
+                    type="submit" 
+                    disabled={formStatus === 'submitting' || formStatus === 'success'}
+                    className={`w-full py-4 rounded-xl font-bold text-lg text-white flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-green-500/30 ${
+                      formStatus === 'success' ? 'bg-green-700' : 'bg-green-600 hover:bg-green-700'
+                    }`}
+                  >
+                    {formStatus === 'submitting' ? (
+                      <span className="animate-pulse">Sending...</span>
+                    ) : formStatus === 'success' ? (
+                      <span>Message Sent Successfully!</span>
+                    ) : (
+                      <>Send Message <Send size={20} /></>
+                    )}
+                  </button>
+                </form>
+              </div>
+            </motion.div>
+
+            {/* Map */}
+            <motion.div 
+               initial={{ opacity: 0, x: 50 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               viewport={{ once: true }}
+               className="w-full lg:w-1/2 h-[500px] lg:h-[650px] bg-gray-100 rounded-3xl overflow-hidden shadow-2xl border border-gray-200 order-first lg:order-last"
+            >
+               {/* Updated Google Maps Embed for 10E Pirivena Rd */}
                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.5727142145465!2d79.87780447587635!3d6.821731619623837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25ad360431309%3A0xc09249764516641!2sNatural%20Latex%20Foam%20Lanka%20Pvt%20Ltd!5e0!3m2!1sen!2slk!4v1708608851000!5m2!1sen!2slk" 
+                  src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=10E%20Pirivena%20Rd%2C%20Dehiwala-Mount%20Lavinia+(Natural%20Latex%20Foam%20Lanka%20Pvt%20Ltd)&t=&z=15&ie=UTF8&iwloc=B&output=embed"
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
