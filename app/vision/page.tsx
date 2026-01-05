@@ -1,16 +1,33 @@
 "use client";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Target, Leaf, Lightbulb } from "lucide-react";
+import { Target, Leaf, Lightbulb, ShieldCheck, Award, CheckCircle } from "lucide-react";
 
 export default function Vision() {
+  // Animation Variants (Fixed TypeScript Error by removing explicit 'ease' string type inference)
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+  };
+
+  const fadeInLeft = {
+    hidden: { opacity: 0, x: -40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
+  };
+
+  const fadeInRight = {
+    hidden: { opacity: 0, x: 40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
+  };
+
   return (
-    <main className="bg-white min-h-screen">
+    <main className="bg-white min-h-screen font-sans text-gray-800 overflow-x-hidden">
       <Navbar />
 
-      {/* --- HERO SECTION (Enhanced) --- */}
+      {/* ==================== 1. HERO SECTION (EXISTING) ==================== */}
       <section className="relative pt-40 pb-24 bg-green-950 text-white text-center px-4 overflow-hidden min-h-[500px] flex flex-col justify-center">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
@@ -54,7 +71,7 @@ export default function Vision() {
         </div>
       </section>
 
-      {/* --- VISION & MISSION CARDS --- */}
+      {/* ==================== 2. VISION & MISSION CARDS (EXISTING) ==================== */}
       <section className="py-20 -mt-10 relative z-20 px-4">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
@@ -63,7 +80,7 @@ export default function Vision() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-white p-10 rounded-3xl shadow-xl border-t-8 border-green-600 relative overflow-hidden group"
+              className="bg-white p-10 rounded-3xl shadow-xl border-t-8 border-green-600 relative overflow-hidden group hover:shadow-2xl transition-shadow duration-300"
             >
               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                 <Leaf size={100} className="text-green-600"/>
@@ -84,7 +101,7 @@ export default function Vision() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-white p-10 rounded-3xl shadow-xl border-t-8 border-green-800 relative overflow-hidden group"
+              className="bg-white p-10 rounded-3xl shadow-xl border-t-8 border-green-800 relative overflow-hidden group hover:shadow-2xl transition-shadow duration-300"
             >
                <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                 <Target size={100} className="text-green-800"/>
@@ -101,8 +118,67 @@ export default function Vision() {
         </div>
       </section>
 
-      {/* --- TYPES OF LATEX CONTENT --- */}
-      <section className="py-10 bg-white">
+      {/* ==================== 3. NEW SECTION: BRAND IDENTITY (LOGO - UPDATED) ==================== */}
+      <section className="py-20 md:py-28 bg-gray-50 overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            
+            {/* Left: Text Content (Unchanged) */}
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInLeft}
+              className="space-y-8 order-2 md:order-1"
+            >
+              <div className="text-center md:text-left">
+                <span className="text-green-600 font-bold uppercase tracking-widest text-sm bg-green-100 px-3 py-1 rounded-full">Our Identity</span>
+                <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mt-4 leading-tight">
+                  A Symbol of <span className="text-green-700">Pure Quality</span>
+                </h2>
+              </div>
+              
+              <p className="text-gray-600 text-lg leading-relaxed text-center md:text-left">
+                Our logo represents more than just a brand; it signifies our deep-rooted connection 
+                to nature and our commitment to Sri Lankan craftsmanship. Every curve reflects the 
+                flow of natural rubber sap and the comfort of our finished products.
+              </p>
+
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 transform hover:-translate-y-1 transition-transform">
+                <p className="text-gray-800 font-medium italic text-center md:text-left">
+                  "As leaders in the Natural Latex Foam industry, we stand by the purity of our materials. 
+                  No synthetic fillers, no shortcuts—just 100% natural comfort."
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Right: Logo Image (UPDATED - Tighter Circle) */}
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInRight}
+              className="flex justify-center md:justify-end relative order-1 md:order-2"
+            >
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-green-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+              
+              <div className="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center transform hover:scale-105 transition-transform duration-500">
+                <Image
+                  src="/images/logo.png" 
+                  alt="Natural Latex Foam Logo" 
+                  width={400} 
+                  height={400} 
+                  className="object-contain w-full h-full drop-shadow-md"
+                />
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== 4. TYPES OF LATEX (EXISTING) ==================== */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -110,19 +186,25 @@ export default function Vision() {
                <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mt-2">The Different Types Of Latex</h2>
             </div>
             
-            <div className="prose prose-lg text-gray-700 mx-auto bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-gray-100">
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="prose prose-lg text-gray-700 mx-auto bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-gray-100"
+            >
               <p className="mb-6">
                 There are three different types which are used to populate a mattress's inner core. On the outset, 
                 each type has similar characteristics such as the springy feel and firmness, but they differ greatly 
                 in price, overall quality, and longevity.
               </p>
 
-              <div className="flex items-start gap-4 mt-10 mb-6">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center shrink-0 text-green-700">
+              <div className="flex flex-col md:flex-row items-start gap-4 mt-10 mb-6">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center shrink-0 text-green-700 mx-auto md:mx-0">
                   <Lightbulb size={24} />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-green-900 mb-3">Natural (Organic)</h3>
+                  <h3 className="text-2xl font-bold text-green-900 mb-3 text-center md:text-left">Natural (Organic)</h3>
                   <p className="leading-relaxed">
                     The organic latex mattress is basically made of processed tree sap, or serum, which is a sticky milky fluid 
                     found in the rubber tree. It is collected by a process called "tapping" which means incisions are made 
@@ -137,20 +219,100 @@ export default function Vision() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* --- LARGE IMAGE SECTION (16:9) --- */}
-      <section className="py-10 bg-white">
+      {/* ==================== 5. NEW SECTION: 25 YEAR WARRANTY ==================== */}
+      <section className="py-20 bg-gradient-to-br from-green-50 to-white relative overflow-hidden">
+        {/* Decorative Background Icon */}
+        <ShieldCheck className="hidden md:block absolute top-0 right-0 text-green-100 w-[500px] h-[500px] -rotate-12 opacity-40 z-0 translate-x-1/3 -translate-y-1/4" />
+
+        <div className="container relative z-10 mx-auto px-4">
+          <div className="flex flex-col-reverse md:flex-row items-center gap-16">
+            
+            {/* Left: Warranty Image/Certificate */}
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="w-full md:w-1/2 flex justify-center"
+            >
+              <div className="relative group perspective-1000 w-full max-w-md">
+                 <div className="relative z-10 bg-white p-3 rounded-xl shadow-2xl rotate-2 group-hover:rotate-0 transition-transform duration-500 border border-gray-100">
+                    <Image 
+                      src="/images/25-year-warranty.jpg" 
+                      alt="25 Year Warranty Certificate" 
+                      width={600}
+                      height={600}
+                      className="w-full h-auto object-cover rounded-lg"
+                    />
+                    {/* Badge Overlay */}
+                    <div className="absolute -top-5 -right-5 bg-yellow-400 text-yellow-900 w-20 h-20 rounded-full flex items-center justify-center font-bold text-center text-xs shadow-lg border-4 border-white animate-bounce-slow">
+                       BEST IN CLASS
+                    </div>
+                 </div>
+                 {/* Shadow element behind */}
+                 <div className="absolute inset-0 bg-green-900 rounded-xl transform rotate-6 translate-y-4 opacity-10 -z-10"></div>
+              </div>
+            </motion.div>
+
+            {/* Right: Content Details */}
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInRight}
+              className="w-full md:w-1/2 space-y-8 text-center md:text-left"
+            >
+               <div>
+                 <div className="flex items-center justify-center md:justify-start space-x-3 mb-4">
+                   <Award className="text-yellow-500 w-8 h-8 fill-yellow-500" />
+                   <span className="text-green-700 font-bold uppercase tracking-widest text-sm">Our Promise</span>
+                 </div>
+                 
+                 <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-none">
+                   25 Years <br/><span className="text-green-600">Warranty</span>
+                 </h2>
+               </div>
+               
+               <p className="text-gray-600 text-lg">
+                 We are so confident in the durability and resilience of our natural latex foam that we back it up with an industry-leading warranty. This isn't just a number; it's our guarantee of quality.
+               </p>
+
+               <ul className="space-y-4 text-left">
+                 <li className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                   <div className="bg-green-100 p-2 rounded-full flex-shrink-0"><Leaf className="w-5 h-5 text-green-600" /></div>
+                   <div>
+                      <h4 className="font-bold text-gray-900">Zero Sagging</h4>
+                      <p className="text-sm text-gray-600">Maintains shape and support decade after decade.</p>
+                   </div>
+                 </li>
+                 <li className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                   <div className="bg-green-100 p-2 rounded-full flex-shrink-0"><CheckCircle className="w-5 h-5 text-green-600" /></div>
+                   <div>
+                      <h4 className="font-bold text-gray-900">Natural Resilience</h4>
+                      <p className="text-sm text-gray-600">100% organic structure that resists breakdown.</p>
+                   </div>
+                 </li>
+               </ul>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== 6. LARGE IMAGE SECTION (EXISTING) ==================== */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
            <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-gray-900">From Nature to Your Home</h2>
-              <p className="text-gray-500 mt-2">The journey of pure rubber sap</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">From Nature to Your Home</h2>
+              <p className="text-gray-500 mt-2 text-lg">The journey of pure rubber sap</p>
            </div>
 
-           {/* Modified Image Container: Fixed Size, No Zoom, Full Visibility */}
+           {/* Modified Image Container */}
            <motion.div 
              initial={{ opacity: 0, y: 40 }}
              whileInView={{ opacity: 1, y: 0 }}

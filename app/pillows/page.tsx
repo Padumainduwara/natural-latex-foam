@@ -81,6 +81,15 @@ const products = [
     size: "25 x 25 x 10 cm",
     warranty: "3 Year Warranty",
     features: ["Travel Friendly", "Targeted Relief"]
+  },
+  {
+    id: 5,
+    name: "Natural Shredded Rubber Pillows",
+    image: "/images/pillows/shredded-pillows.jpg",
+    description: "Perfectly to your head and neck shape for personalized support.",
+    size: "60 x 40 x 15 cm",
+    warranty: "3 Year Warranty",
+    features: ["100% Natural Shredded Latex", "Enhanced Breathability"]
   }
 ];
 
