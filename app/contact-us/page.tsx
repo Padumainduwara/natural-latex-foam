@@ -59,7 +59,7 @@ export default function ContactUs() {
   };
 
   return (
-    <main className="bg-white min-h-screen">
+    <main className="bg-white min-h-screen w-full overflow-x-hidden relative">
       {/* --- SEO SCHEMA INJECTION --- */}
       <script
         type="application/ld+json"

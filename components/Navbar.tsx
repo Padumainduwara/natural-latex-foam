@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Recycle } from "lucide-react"; // Recycle icon added
+import Image from "next/image"; 
+import { Menu, X } from "lucide-react"; 
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
@@ -10,7 +11,7 @@ const navLinks = [
   { name: "About Us", href: "/about-us" },
   { name: "Mattresses", href: "/mattresses" },
   { name: "Pillows", href: "/pillows" },
-  { name: "Advantages", href: "/advantages" }, // Added Advantages link for completeness
+  { name: "Advantages", href: "/advantages" },
   { name: "Contact", href: "/contact-us" },
 ];
 
@@ -24,15 +25,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // --- Styles Logic ---
-  // Scrolled: Background White, Text Green
-  // Not Scrolled (Top): Background Transparent, Text White
-  
   const textColorClass = scrolled ? "text-green-900" : "text-white";
-  const iconColorClass = scrolled ? "text-green-600" : "text-green-400"; // Logo icon color
-  const subTextColorClass = scrolled ? "text-gray-600" : "text-gray-200"; // 'Foam' text part
+  const subTextColorClass = scrolled ? "text-gray-600" : "text-gray-200";
   const bgClass = scrolled ? "bg-white/95 backdrop-blur-md shadow-md py-3" : "bg-transparent py-5";
-  const hoverLineColor = scrolled ? "bg-green-600" : "bg-white"; // Underline hover color
+  const hoverLineColor = scrolled ? "bg-green-600" : "bg-white";
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${bgClass}`}>
@@ -40,8 +36,17 @@ export default function Navbar() {
         
         {/* Logo Section */}
         <Link href="/" className={`flex items-center gap-2 font-bold text-xl md:text-2xl transition-colors ${textColorClass}`}>
-          {/* Replaced Leaf with Recycle icon */}
-          <Recycle className={`w-8 h-8 ${iconColorClass}`} />
+          <div className="relative w-8 h-8 shrink-0"> 
+             <Image
+               src="/images/logo.png" 
+               alt="Natural Latex Foam Lanka Logo"
+               fill 
+               sizes="32px"
+               className="object-contain" 
+               priority 
+             />
+          </div>
+
           <span>
             Natural Latex <span className={subTextColorClass}>Foam</span>
           </span>

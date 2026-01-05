@@ -69,12 +69,12 @@ const products = [
   },
   {
     id: 4,
-    name: "Natural Latex Laminated Cushion",
-    image: "/images/mattresses/laminated-cushions.jpg",
-    description: "Versatile natural latex cushions perfect for seating comfort. Durable and supportive.",
-    specs: ['20"x20"x4"', '20"x20"x2.5"', "Custom Sizes"],
-    warranty: "Standard Warranty",
-    features: ["High Durability", "Multi-purpose", "Eco-Friendly"]
+    name: "Natural Latex Foam Mattress",
+    image: "/images/mattresses/foam-mattress.jpg",
+    description: "Premium natural latex foam mattress featuring high-quality cotton inner and outer covers with a zipper. Available in Medium & Hard density options.",
+    specs: ["All Standard Sizes", "Custom Sizes Available"],
+    warranty: "25 Year Warranty",
+    features: ["Medium/Hard Density", "Removable Cover", "100% Natural"]
   }
 ];
 

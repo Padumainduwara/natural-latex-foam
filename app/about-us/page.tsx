@@ -7,7 +7,7 @@ import { CheckCircle, Globe, Award, History, Leaf } from "lucide-react";
 
 export default function AboutUs() {
   return (
-    <main className="bg-white min-h-screen">
+    <main className="bg-white min-h-screen w-full overflow-x-hidden relative">
       <Navbar />
       
       {/* --- HERO SECTION (Enhanced) --- */}

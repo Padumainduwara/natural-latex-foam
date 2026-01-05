@@ -287,14 +287,14 @@ export default function Home() {
                className="group bg-white rounded-[2rem] overflow-hidden shadow-xl border border-gray-100 hover:shadow-2xl hover:shadow-green-900/10 transition-all duration-500 flex flex-col"
              >
                 <div className="relative h-64 w-full overflow-hidden">
-                   <Image src="/images/mattresses/laminated-cushions.jpg" alt="Laminated Cushions" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                   <Image src="/images/mattresses/rebounded-cushions.jpg" alt="Rebounded Cushions" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
                    {/* Floating Icon - Moved UP */}
                    <div className="absolute bottom-4 right-6 w-14 h-14 bg-green-600 rounded-2xl flex items-center justify-center text-white shadow-lg border-4 border-white group-hover:bg-green-700 transition-colors z-10">
                       <Layers size={24} />
                    </div>
                 </div>
                 <div className="pt-6 px-6 pb-8 flex-grow flex flex-col">
-                   <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors">Laminated Cushions</h3>
+                   <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors">Rebounded Cushions</h3>
                    <p className="text-gray-500 text-sm mb-6 leading-relaxed line-clamp-3">
                       High-density natural latex for durable seating comfort. Standard 20x20 sizes or custom-made to fit your furniture.
                    </p>
