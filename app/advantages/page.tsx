@@ -109,7 +109,7 @@ export default function Advantages() {
       </section>
 
       {/* --- TYPES OF LATEX COMPARISON --- */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
            <div className="text-center mb-16">
               <span className="text-green-600 font-bold uppercase tracking-wider text-sm">Knowledge Base</span>
@@ -179,9 +179,7 @@ export default function Advantages() {
       <section className="py-24 bg-white overflow-hidden">
          <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center bg-green-900 rounded-3xl p-8 md:p-16 text-white shadow-2xl relative">
-               {/* Decorative Circle */}
-               <div className="absolute -top-20 -right-20 w-80 h-80 bg-green-800 rounded-full opacity-50 blur-3xl"></div>
-               
+             
                <div className="md:w-1/2 relative z-10">
                   <h2 className="text-3xl md:text-5xl font-bold mb-6">The NLFL Standard</h2>
                   <p className="text-green-200 text-lg mb-8">

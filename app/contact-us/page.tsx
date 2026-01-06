@@ -4,7 +4,9 @@ import Footer from "@/components/Footer";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Send, User, AtSign, PenTool } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
+// EmailJS library eka import kala
+import emailjs from '@emailjs/browser';
 
 // --- LOCAL BUSINESS SCHEMA (JSON-LD) ---
 const localBusinessSchema = {
@@ -44,18 +46,38 @@ const localBusinessSchema = {
 };
 
 export default function ContactUs() {
-  const [formStatus, setFormStatus] = useState("idle"); // idle, submitting, success
+  const [formStatus, setFormStatus] = useState("idle"); // idle, submitting, success, error
+  const form = useRef<HTMLFormElement>(null); // Form eka reference karanna
 
-  // Function to handle form submission (UI only for now)
+  // Function to handle form submission via EmailJS
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus("submitting");
-    // Simulate network request
-    setTimeout(() => {
-      setFormStatus("success");
-      // Reset after 3 seconds
-      setTimeout(() => setFormStatus("idle"), 3000);
-    }, 1500);
+
+    if (form.current) {
+      emailjs
+        .sendForm(
+          'service_f4mej28',   // Replace with your EmailJS Service ID
+          'template_e7ctmb8',  // Replace with your EmailJS Template ID
+          form.current,
+          'iCNeXhX4jeIygJ-gN'    // Replace with your EmailJS Public Key
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+            setFormStatus("success");
+            // Form eka clear karanna
+            form.current?.reset();
+            // Reset status after 3 seconds
+            setTimeout(() => setFormStatus("idle"), 3000);
+          },
+          (error) => {
+            console.log(error.text);
+            setFormStatus("error"); // Error status ekak add kala
+            setTimeout(() => setFormStatus("idle"), 3000);
+          }
+        );
+    }
   };
 
   return (
@@ -115,12 +137,6 @@ export default function ContactUs() {
       {/* --- CONTACT INFO CARDS --- */}
       <section className="py-20 bg-white -mt-10 relative z-20">
         <div className="container mx-auto px-4">
-          {/* Updated Grid Layout for 5 Cards:
-             - Mobile: 1 col
-             - Tablet (md): 2 cols
-             - Laptop (lg): 3 cols (looks better than squeezing 5)
-             - Large Desktop (xl): 5 cols (all in one row)
-          */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 justify-center">
             
             {/* Address Card */}
@@ -157,7 +173,7 @@ export default function ContactUs() {
               </a>
             </motion.div>
 
-            {/* NEW WhatsApp Card (Added Here) */}
+            {/* WhatsApp Card */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -167,7 +183,6 @@ export default function ContactUs() {
               className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center h-full cursor-pointer group"
             >
               <div className="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-white mb-6 shadow-green-200 shadow-lg group-hover:scale-110 transition-transform">
-                {/* Using MessageCircle as WhatsApp icon substitute or you can use a custom SVG */}
                 <MessageCircle size={28} />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">WhatsApp</h3>
@@ -238,20 +253,23 @@ export default function ContactUs() {
                 <h2 className="text-3xl font-bold text-green-950 mb-2">Send us a Message</h2>
                 <p className="text-gray-500 mb-8">Have a specific question? Fill out the form below and we'll get back to you shortly.</p>
                 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                {/* ref={form} add kala */}
+                <form ref={form} onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="relative">
                       <label className="text-sm font-semibold text-gray-700 mb-2 block">Your Name</label>
                       <div className="relative">
                         <User className="absolute left-4 top-3.5 text-gray-400 w-5 h-5" />
-                        <input type="text" placeholder="John Doe" required className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                        {/* name attribute add kala */}
+                        <input type="text" name="user_name" placeholder="John Doe" required className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
                       </div>
                     </div>
                     <div className="relative">
                       <label className="text-sm font-semibold text-gray-700 mb-2 block">Your Email</label>
                       <div className="relative">
                          <AtSign className="absolute left-4 top-3.5 text-gray-400 w-5 h-5" />
-                         <input type="email" placeholder="john@example.com" required className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                         {/* name attribute add kala */}
+                         <input type="email" name="user_email" placeholder="john@example.com" required className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
                       </div>
                     </div>
                   </div>
@@ -260,7 +278,8 @@ export default function ContactUs() {
                      <label className="text-sm font-semibold text-gray-700 mb-2 block">Phone Number</label>
                      <div className="relative">
                         <Phone className="absolute left-4 top-3.5 text-gray-400 w-5 h-5" />
-                        <input type="tel" placeholder="+94 77..." className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                        {/* name attribute add kala */}
+                        <input type="tel" name="contact_number" placeholder="+94 77..." className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
                      </div>
                   </div>
 
@@ -268,7 +287,8 @@ export default function ContactUs() {
                      <label className="text-sm font-semibold text-gray-700 mb-2 block">Message</label>
                      <div className="relative">
                         <PenTool className="absolute left-4 top-3.5 text-gray-400 w-5 h-5" />
-                        <textarea rows={4} placeholder="How can we help you?" required className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all resize-none"></textarea>
+                        {/* name attribute add kala */}
+                        <textarea name="message" rows={4} placeholder="How can we help you?" required className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all resize-none"></textarea>
                      </div>
                   </div>
 
@@ -276,13 +296,15 @@ export default function ContactUs() {
                     type="submit" 
                     disabled={formStatus === 'submitting' || formStatus === 'success'}
                     className={`w-full py-4 rounded-xl font-bold text-lg text-white flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-green-500/30 ${
-                      formStatus === 'success' ? 'bg-green-700' : 'bg-green-600 hover:bg-green-700'
+                      formStatus === 'success' ? 'bg-green-700' : formStatus === 'error' ? 'bg-red-600' : 'bg-green-600 hover:bg-green-700'
                     }`}
                   >
                     {formStatus === 'submitting' ? (
                       <span className="animate-pulse">Sending...</span>
                     ) : formStatus === 'success' ? (
                       <span>Message Sent Successfully!</span>
+                    ) : formStatus === 'error' ? (
+                      <span>Failed. Try again.</span>
                     ) : (
                       <>Send Message <Send size={20} /></>
                     )}

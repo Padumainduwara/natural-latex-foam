@@ -119,7 +119,7 @@ export default function Vision() {
       </section>
 
       {/* ==================== 3. NEW SECTION: BRAND IDENTITY (LOGO - UPDATED) ==================== */}
-      <section className="py-20 md:py-28 bg-gray-50 overflow-hidden">
+      <section className="py-20 md:py-28 bg-white overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             

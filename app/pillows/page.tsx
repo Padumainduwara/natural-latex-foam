@@ -149,7 +149,7 @@ export default function Pillows() {
       </section>
 
       {/* --- INTRO / WHY CHOOSE US --- */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center mb-16">
                 <span className="text-green-600 font-bold uppercase tracking-wider text-sm">Why Our Pillows?</span>

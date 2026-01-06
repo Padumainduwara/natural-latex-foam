@@ -135,7 +135,7 @@ export default function Mattresses() {
       </section>
 
       {/* --- INTRO / BENEFITS --- */}
-      <section className="py-16 md:py-20 bg-gray-50">
+      <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center mb-12 md:mb-16">
                 <span className="text-green-600 font-bold uppercase tracking-wider text-sm">Why Latex?</span>
