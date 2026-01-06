@@ -58,7 +58,7 @@ export default function ContactUs() {
       emailjs
         .sendForm(
           'service_f4mej28',   // Replace with your EmailJS Service ID
-          'template_e7ctmb8',  // Replace with your EmailJS Template ID
+          'template_5c8hs8o',  // Replace with your EmailJS Template ID
           form.current,
           'iCNeXhX4jeIygJ-gN'    // Replace with your EmailJS Public Key
         )
