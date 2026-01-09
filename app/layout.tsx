@@ -54,7 +54,9 @@ export const metadata: Metadata = {
     "Cushion works Ratmalana",
     "Eco friendly mattress Sri Lanka",
     "Latex Sheets Sri Lanka",
-    "Wholesale Mattress Sri Lanka"
+    "Wholesale Mattress Sri Lanka",
+    "Best Mattress Brand Sri Lanka",
+    "100% Natural Rubber Mattress"
   ],
   authors: [{ name: "Natural Latex Foam Lanka Pvt Ltd", url: "https://naturallatexfoamsrilanka.lk" }],
   creator: "Natural Latex Foam Lanka Pvt Ltd",

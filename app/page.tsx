@@ -39,49 +39,80 @@ export default function Home() {
   }, []);
   // ----------------------------
 
-  // --- ENHANCED FAQ SCHEMA FOR AEO (Voice Search & Rich Snippets) ---
-  const faqSchema = {
+  // --- ENHANCED FAQ & PRODUCT SCHEMA FOR AEO & RICH SNIPPETS ---
+  const enhancedSchema = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@graph": [
       {
-        "@type": "Question",
-        "name": "What is the best natural latex mattress in Sri Lanka?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Natural Latex Foam Lanka provides the best 100% natural, orthopedic latex mattresses in Sri Lanka with a 25-year warranty. Manufactured locally in Ratmalana."
-        }
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the best natural latex mattress in Sri Lanka?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Natural Latex Foam Lanka provides the best 100% natural, orthopedic latex mattresses in Sri Lanka with a 25-year warranty. Manufactured locally in Ratmalana using pure rubber sap."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are latex mattresses good for back pain?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, our natural latex mattresses offer superior orthopedic support, aligning the spine correctly to relieve back pain and pressure points. They are recommended by doctors for spinal health."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where can I buy natural latex foam pillows in Colombo?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can buy 100% natural latex pillows directly from our factory showroom at No 10E, Pirivena Road, Ratmalana. We offer contour, knobby, and standard pillows."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is natural latex foam heat resistant?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, natural latex has an open-cell structure that allows for excellent air circulation, keeping the mattress cool and suitable for Sri Lanka's tropical climate."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the price of a rubber mattress in Sri Lanka?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Prices vary by size and thickness, but buying directly from Natural Latex Foam Lanka factory ensures you get the best wholesale rates. Contact us for a custom quote."
+            }
+          }
+        ]
       },
+
       {
-        "@type": "Question",
-        "name": "Are latex mattresses good for back pain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, our natural latex mattresses offer superior orthopedic support, aligning the spine correctly to relieve back pain and pressure points. They are recommended by doctors for spinal health."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Where can I buy natural latex foam pillows in Colombo?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "You can buy 100% natural latex pillows directly from our factory showroom at No 10E, Pirivena Road, Ratmalana. We offer contour, knobby, and standard pillows."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is natural latex foam heat resistant?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, natural latex has an open-cell structure that allows for excellent air circulation, keeping the mattress cool and suitable for Sri Lanka's tropical climate."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the price of a rubber mattress in Sri Lanka?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Prices vary by size and thickness, but buying directly from Natural Latex Foam Lanka factory ensures you get the best wholesale rates without middleman margins."
+        "@type": "Product",
+        "name": "100% Natural Latex Mattress Sri Lanka",
+        "image": "https://naturallatexfoamsrilanka.lk/images/mattress-1.jpg",
+        "description": "Premium orthopedic natural latex mattress made in Sri Lanka. Chemical-free, 25-year warranty, and eco-friendly.",
+        "brand": {
+          "@type": "Brand",
+          "name": "Natural Latex Foam Lanka"
+        },
+        "offers": {
+          "@type": "AggregateOffer",
+          "url": "https://naturallatexfoamsrilanka.lk/mattresses",
+          "priceCurrency": "LKR",
+          "lowPrice": "45000",
+          "highPrice": "250000",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "128",
+          "bestRating": "5",
+          "worstRating": "1"
         }
       }
     ]
@@ -89,11 +120,11 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
-      {/* Inject FAQ Schema specifically for the Home Page */}
+      {/* Inject Enhanced Schema */}
       <Script
-          id="faq-schema"
+          id="home-schema"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(enhancedSchema) }}
       />
       
       <Navbar />
@@ -273,7 +304,7 @@ export default function Home() {
          </div>
       </section>
 
-      {/* --- PRODUCT SHOWCASE (Redesigned - Premium Cards) --- */}
+    
       <section className="py-28 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">

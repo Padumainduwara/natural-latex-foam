@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'weekly', 
+      changeFrequency: 'daily', // Increased frequency
       priority: 1,
     },
     {
@@ -25,19 +25,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/contact-us`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8, // High priority for conversion
+      changeFrequency: 'weekly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/about-us`,
       lastModified: new Date(),
-      changeFrequency: 'yearly',
+      changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${baseUrl}/advantages`,
       lastModified: new Date(),
-      changeFrequency: 'yearly',
+      changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
