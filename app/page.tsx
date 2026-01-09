@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 
 export default function Home() {
   // --- HERO SLIDESHOW LOGIC ---
@@ -38,40 +39,94 @@ export default function Home() {
   }, []);
   // ----------------------------
 
+  // --- ENHANCED FAQ SCHEMA FOR AEO (Voice Search & Rich Snippets) ---
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the best natural latex mattress in Sri Lanka?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Natural Latex Foam Lanka provides the best 100% natural, orthopedic latex mattresses in Sri Lanka with a 25-year warranty. Manufactured locally in Ratmalana."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are latex mattresses good for back pain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our natural latex mattresses offer superior orthopedic support, aligning the spine correctly to relieve back pain and pressure points. They are recommended by doctors for spinal health."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I buy natural latex foam pillows in Colombo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can buy 100% natural latex pillows directly from our factory showroom at No 10E, Pirivena Road, Ratmalana. We offer contour, knobby, and standard pillows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is natural latex foam heat resistant?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, natural latex has an open-cell structure that allows for excellent air circulation, keeping the mattress cool and suitable for Sri Lanka's tropical climate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the price of a rubber mattress in Sri Lanka?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Prices vary by size and thickness, but buying directly from Natural Latex Foam Lanka factory ensures you get the best wholesale rates without middleman margins."
+        }
+      }
+    ]
+  };
+
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
+      {/* Inject FAQ Schema specifically for the Home Page */}
+      <Script
+          id="faq-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      
       <Navbar />
 
       {/* --- HERO SECTION --- */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-0">
-        
         
         {/* Background Slideshow */}
         <div className="absolute inset-0 z-0">
           <AnimatePresence mode="popLayout">
             <motion.div
               key={currentIndex}
-              initial={{ opacity: 0, scale: 1.1 }} // Starts slightly zoomed in & transparent
-              animate={{ opacity: 1, scale: 1 }}    // Fades in & zooms out to normal
-              exit={{ opacity: 0 }}                 // Fades out
-              transition={{ duration: 1.5, ease: "easeInOut" }} // Smooth transition
+              initial={{ opacity: 0, scale: 1.1 }} 
+              animate={{ opacity: 1, scale: 1 }}    
+              exit={{ opacity: 0 }}                 
+              transition={{ duration: 1.5, ease: "easeInOut" }} 
               className="absolute inset-0 w-full h-full"
             >
               <Image 
                 src={heroImages[currentIndex]} 
-                alt="Natural Latex Mattress Factory" 
+                alt="Natural Latex Mattress Factory Sri Lanka - 100% Organic" 
                 fill 
                 className="object-cover brightness-50"
-                priority
+                priority // Priority loading for LCP (SEO Core Web Vitals)
               />
             </motion.div>
           </AnimatePresence>
 
-          {/* Gradient Overlay for better text readability (Stays consistent on top) */}
+          {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-green-950/90 z-10"></div>
         </div>
 
-        {/* --- Content Container (Existing Content) --- */}
+        {/* --- Content Container --- */}
         <div className="container relative z-10 px-4 text-center mt-10 md:mt-0">
           <motion.div
              initial={{ opacity: 0, y: -20 }}
@@ -88,7 +143,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight drop-shadow-lg"
           >
-            Smarter Choice for <br/> <span className="text-green-400">The Environment</span>
+            Natural Latex Foam <br/> <span className="text-green-400">Sri Lanka</span>
           </motion.h1>
           
           <motion.p 
@@ -97,7 +152,7 @@ export default function Home() {
             transition={{ delay: 0.2, duration: 0.8 }}
             className="text-lg md:text-2xl text-gray-100 mb-10 max-w-3xl mx-auto font-light leading-relaxed px-4"
           >
-            Experience the purest sleep with our eco-friendly, hypoallergenic, and chemically safe natural latex products.
+            Experience the purest sleep with our eco-friendly, hypoallergenic, and chemically safe natural latex mattresses and pillows.
           </motion.p>
 
           {/* Hero Buttons - Custom Layout */}
@@ -110,16 +165,16 @@ export default function Home() {
             {/* Row 1: Products */}
             <div className="flex flex-col sm:flex-row gap-4 w-full">
                 <Link href="/mattresses" className="flex-1 px-6 py-4 bg-green-600 hover:bg-green-500 text-white rounded-full font-bold transition-all transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg hover:shadow-green-500/30">
-                  Explore Mattresses <ArrowRight size={18} />
+                  Shop Mattresses <ArrowRight size={18} />
                 </Link>
                 <Link href="/pillows" className="flex-1 px-6 py-4 bg-white text-green-900 hover:bg-gray-100 rounded-full font-bold transition-all transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg">
-                  Explore Pillows <ArrowRight size={18} />
+                  Shop Pillows <ArrowRight size={18} />
                 </Link>
             </div>
             
             {/* Row 2: Contact */}
             <Link href="/contact-us" className="w-full sm:w-auto px-10 py-3 bg-white/10 backdrop-blur-md border border-white/50 text-white hover:bg-white hover:text-green-900 rounded-full font-bold transition-all transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg">
-               Contact Us
+               Contact Factory
             </Link>
           </motion.div>
         </div>
@@ -154,7 +209,7 @@ export default function Home() {
               {/* Image Side */}
               <div className="lg:w-1/2 relative w-full">
                  <div className="relative h-[350px] md:h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl">
-                    <Image src="/images/about-us/rubber-milk.jpg" alt="Rubber Tapping Process" fill className="object-cover hover:scale-105 transition-transform duration-1000" />
+                    <Image src="/images/about-us/rubber-milk.jpg" alt="Natural Latex Rubber Tapping Process in Sri Lanka" fill className="object-cover hover:scale-105 transition-transform duration-1000" />
                  </div>
                  {/* Floating Badge */}
                  <div className="absolute -bottom-6 -right-6 md:bottom-10 md:-right-10 w-40 h-40 md:w-48 md:h-48 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-xl border-4 border-green-50 animate-float hidden md:flex">
@@ -171,7 +226,7 @@ export default function Home() {
                  <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mt-4 mb-6 leading-tight">Nature's Gift to <br/>Your Sleep</h2>
                  <p className="text-gray-600 text-lg leading-relaxed mb-6">
                     Natural Latex Foam Lanka Pvt Ltd. (NLFL) is a premier 100% Sri Lankan company engaged in providing 
-                    eco-friendly natural latex foam mattresses and pillows to global and local markets.
+                    eco-friendly <strong>natural latex foam mattresses and pillows</strong> to global and local markets.
                  </p>
                  <p className="text-gray-600 text-lg leading-relaxed mb-8">
                     We bring together all the health benefits of organic latex foam, ensuring weight is evenly distributed 
@@ -188,7 +243,7 @@ export default function Home() {
       </section>
 
       {/* --- COMFORT VALUES --- */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
          <div className="container mx-auto px-4">
             <div className="text-center mb-16">
                <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Comfort for Everyone</h2>
@@ -219,7 +274,7 @@ export default function Home() {
       </section>
 
       {/* --- PRODUCT SHOWCASE (Redesigned - Premium Cards) --- */}
-      <section className="py-28 bg-gray-50">
+      <section className="py-28 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
              <span className="text-green-600 font-bold uppercase tracking-wider text-sm bg-white px-4 py-1 rounded-full shadow-sm border border-green-100">Our Collection</span>
@@ -237,20 +292,20 @@ export default function Home() {
                className="group bg-white rounded-[2rem] overflow-hidden shadow-xl border border-gray-100 hover:shadow-2xl hover:shadow-green-900/10 transition-all duration-500 flex flex-col"
              >
                 <div className="relative h-64 w-full overflow-hidden">
-                   <Image src="/images/mattress-1.jpg" alt="Natural Mattresses" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                   {/* Floating Icon - Moved UP using bottom-4 */}
+                   <Image src="/images/mattress-1.jpg" alt="Best Natural Latex Mattresses Sri Lanka" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                   {/* Floating Icon */}
                    <div className="absolute bottom-4 right-6 w-14 h-14 bg-green-600 rounded-2xl flex items-center justify-center text-white shadow-lg border-4 border-white group-hover:bg-green-700 transition-colors z-10">
                       <HomeIcon size={24} />
                    </div>
                 </div>
-                <div className="pt-6 px-6 pb-8 flex-grow flex flex-col"> {/* Added pt-6 adjusted padding */}
+                <div className="pt-6 px-6 pb-8 flex-grow flex flex-col">
                    <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors">Natural Mattresses</h3>
                    <p className="text-gray-500 text-sm mb-6 leading-relaxed line-clamp-3">
                       Best for back pain with a 25-year warranty. Available in Mono, 5-zone, and 7-zone models for personalized support.
                    </p>
                    <div className="mt-auto">
                       <Link href="/mattresses" className="flex items-center justify-between w-full px-5 py-3 bg-gray-50 text-green-800 font-bold rounded-xl group-hover:bg-green-600 group-hover:text-white transition-all duration-300">
-                          View Collection <ArrowRight size={18} />
+                          View Mattresses <ArrowRight size={18} />
                       </Link>
                    </div>
                 </div>
@@ -262,8 +317,8 @@ export default function Home() {
                className="group bg-white rounded-[2rem] overflow-hidden shadow-xl border border-gray-100 hover:shadow-2xl hover:shadow-green-900/10 transition-all duration-500 flex flex-col"
              >
                 <div className="relative h-64 w-full overflow-hidden">
-                   <Image src="/images/pillow-1.jpg" alt="Latex Pillows" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                   {/* Floating Icon - Moved UP */}
+                   <Image src="/images/pillow-1.jpg" alt="Natural Latex Pillows Sri Lanka - Contour & Standard" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                   {/* Floating Icon */}
                    <div className="absolute bottom-4 right-6 w-14 h-14 bg-green-600 rounded-2xl flex items-center justify-center text-white shadow-lg border-4 border-white group-hover:bg-green-700 transition-colors z-10">
                       <Smile size={24} />
                    </div>
@@ -275,7 +330,7 @@ export default function Home() {
                    </p>
                    <div className="mt-auto">
                       <Link href="/pillows" className="flex items-center justify-between w-full px-5 py-3 bg-gray-50 text-green-800 font-bold rounded-xl group-hover:bg-green-600 group-hover:text-white transition-all duration-300">
-                          View Collection <ArrowRight size={18} />
+                          View Pillows <ArrowRight size={18} />
                       </Link>
                    </div>
                 </div>
@@ -287,8 +342,8 @@ export default function Home() {
                className="group bg-white rounded-[2rem] overflow-hidden shadow-xl border border-gray-100 hover:shadow-2xl hover:shadow-green-900/10 transition-all duration-500 flex flex-col"
              >
                 <div className="relative h-64 w-full overflow-hidden">
-                   <Image src="/images/mattresses/rebounded-cushions.jpg" alt="Rebounded Cushions" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                   {/* Floating Icon - Moved UP */}
+                   <Image src="/images/mattresses/rebounded-cushions.jpg" alt="Rebounded Latex Cushions Sri Lanka" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                   {/* Floating Icon */}
                    <div className="absolute bottom-4 right-6 w-14 h-14 bg-green-600 rounded-2xl flex items-center justify-center text-white shadow-lg border-4 border-white group-hover:bg-green-700 transition-colors z-10">
                       <Layers size={24} />
                    </div>
@@ -312,8 +367,8 @@ export default function Home() {
                className="group bg-white rounded-[2rem] overflow-hidden shadow-xl border border-gray-100 hover:shadow-2xl hover:shadow-green-900/10 transition-all duration-500 flex flex-col"
              >
                 <div className="relative h-64 w-full overflow-hidden">
-                   <Image src="/images/about-us/manufacturing-process.jpg" alt="Sheets and Toppers" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                   {/* Floating Icon - Moved UP */}
+                   <Image src="/images/about-us/manufacturing-process.jpg" alt="Latex Sheets and Toppers Sri Lanka" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                   {/* Floating Icon */}
                    <div className="absolute bottom-4 right-6 w-14 h-14 bg-green-600 rounded-2xl flex items-center justify-center text-white shadow-lg border-4 border-white group-hover:bg-green-700 transition-colors z-10">
                       <Recycle size={24} />
                    </div>
@@ -336,7 +391,7 @@ export default function Home() {
       </section>
 
       {/* --- FEATURES GRID --- */}
-      <section className="py-24 bg-green-50/50">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-green-950 mb-4">Why Natural Latex?</h2>
@@ -368,11 +423,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- CTA SECTION (Updated) --- */}
+      {/* --- CTA SECTION --- */}
       <section className="py-16 md:py-24 bg-green-950 text-white text-center relative overflow-hidden flex flex-col justify-center items-center">
          {/* Background Elements */}
          <div className="absolute inset-0 opacity-10 z-0">
-            <Image src="/images/about-us/rubber-milk.jpg" alt="Pattern" fill className="object-cover" />
+            <Image src="/images/about-us/rubber-milk.jpg" alt="Natural Latex Pattern" fill className="object-cover" />
          </div>
          <div className="absolute -top-24 -left-24 w-64 h-64 bg-green-500 rounded-full blur-3xl opacity-20 z-0"></div>
          <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-green-400 rounded-full blur-3xl opacity-20 z-0"></div>
@@ -384,7 +439,7 @@ export default function Home() {
             </h2>
             <p className="text-green-100 text-base md:text-lg lg:text-xl max-w-2xl mx-auto mb-10 leading-relaxed px-2">
                Join thousands of satisfied customers who have switched to 100% natural latex. 
-               Sleep better, live better.
+               Sleep better, live better with Natural Latex Foam Lanka.
             </p>
             
             {/* Buttons: Stack on Mobile, Row on Desktop */}
